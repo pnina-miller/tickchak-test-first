@@ -4,7 +4,8 @@ import { TicketActionTypes, TicketsState } from "./types";
 export const initialState: TicketsState = {
   data: [],
   errors: undefined,
-  loading: false
+  loading: false,
+  showFormPopup: false
 };
 
 const reducer: Reducer<TicketsState> = (state = initialState, action) => {
@@ -14,10 +15,16 @@ const reducer: Reducer<TicketsState> = (state = initialState, action) => {
     }
     case TicketActionTypes.FETCH_SUCCESS: {
       console.log("action payload", action.payload);
-      return { ...state, loading: false, data: action.payload };
+      return { ...state, loading: false, data: state.data.concat(action.payload) };
     }
     case TicketActionTypes.FETCH_ERROR: {
       return { ...state, loading: false, errors: action.payload };
+    }
+    case TicketActionTypes.ADD_TICKET: {
+      return { ...state, loading: false, data: [...state.data, action.payload] };
+    }
+    case TicketActionTypes.SHOW_FORM_POPUP: {
+      return { ...state, showFormPopup: action.payload };
     }
     default: {
       return state;

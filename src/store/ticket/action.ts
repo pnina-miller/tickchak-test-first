@@ -11,12 +11,12 @@ export type AppThunk = ActionCreator<
 >;
 
 
-export const fetchRequest: AppThunk = (allSearchParams) => {
+export const fetchRequest: AppThunk = (offset: number) => {
   return (dispatch) => {
     dispatch({ type: TicketActionTypes.FETCH_REQUEST });
     const formData = new FormData();
     formData.append('limit','10');
-    formData.append('offset','0');
+    formData.append('offset',offset+'');
     fetch('https://tickchak.co.il/ajax/api/exercise_get_tickets', {
       method: 'POST',
       body: formData

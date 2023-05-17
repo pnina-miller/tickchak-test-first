@@ -1,0 +1,47 @@
+.home-page {
+  margin: 124px 80px 124px 80px;
+
+  .ticket-list-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .page-header {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+    color: #ffffff;
+    font-family: Assistant;
+
+    .plus-icon {
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      img {
+        width: 32px;
+      }
+    }
+
+    .title {
+      font-size: 25pt;
+    }
+
+    .text {
+      font-size: 16pt;
+    }
+  }
+
+  .page-footer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+
+    .load-more {
+      font-size: 16pt;
+      color: #ffffff;
+      background-color: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+  }
+}

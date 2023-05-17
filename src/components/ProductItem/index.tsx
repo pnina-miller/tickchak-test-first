@@ -1,86 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
-import { addToCart } from "../../store/cart/action";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { Ticket } from "../../store/ticket/types";
-const ProductContainer = styled.div`
-  background-color: #eeeeee;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 10px;
-  margin: 15px;
-  cursor: pointer;
-  flex: 0 0 25%;
-`;
+import { PercentageLoader } from "../loaders";
 
-const ProductFigure = styled.figure`
-  width: 230px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ProductImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-`;
-
-const ProductHeader = styled.h1`
-  height: 76px;
-`;
-
-const ProductDescriptionDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const ProductBrandText = styled.text``;
-
-const AddToCart = styled.button`
-  padding: 10px;
-  background-color: blue;
-  color: #ffffff;
-  border-radius: 10px;
-`;
+import './style.css'
 
 interface propsFromComponent {
   item: Ticket;
+
 }
 
 interface propsFromDispatch {
-  addToCart: (item: any) => any;
 }
 
 type Props = propsFromComponent & propsFromDispatch;
 
-const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
-  const AddItemToCart = (item: any) => {
-    addToCart(item);
-  };
+const ProductItem: React.FC<Props> = ({ item }) => {
 
+  const [checked, setChecked] = useState(!!item.active)
+
+
+  const check = (v: any) => {
+    setChecked((oldValue: boolean) => !oldValue)
+  }
+
+  const getPercent = () => {
+    return (item.amount/(item.amount_avaliable + item.amount) * 100).toFixed(0)
+  }
   return (
-    <ProductContainer>
-      <ProductFigure>
-        <img src={item.image} />
-      </ProductFigure>
-      <ProductHeader>{item.title}</ProductHeader>
-      <ProductDescriptionDiv>
-        <ProductBrandText>{item.price+''}</ProductBrandText>
-        <AddToCart onClick={() => AddItemToCart(item)}>Add To Cart</AddToCart>
-      </ProductDescriptionDiv>
-    </ProductContainer>
+    <div className="ticket" key={item.title}>
+      <div className="percent">
+
+        <PercentageLoader percent={getPercent()} color={item.color} />
+      </div>
+      {item.image ? <img className="image" src={item.image} />
+        : <div className="image" style={{ backgroundColor: ('#' + item.color) }}></div>}
+
+      <div className="content">
+
+        <div className="title">{item.title}</div>
+        <div className="amount"> {item.amount}/{item.amount_avaliable + item.amount} יחידות</div>
+        <div className="price">{item.price + ''}</div>
+
+      </div>
+      <div className="switch-wrapper">
+        <label className="switch">
+          <input className={(checked ? 'checked' : 'not-checked') + " checkbox"} onClick={check} />
+          <span className="slider round"></span>
+          <span className="text">{checked ? 'פעיל' : 'כבוי'}</span>
+        </label>
+      </div>
+    </div>
   );
 };
 
-const mapStateToProps = () => {};
+const mapStateToProps = () => { };
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
-    addToCart: (item: any) => dispatch(addToCart(item))
   };
 };
 

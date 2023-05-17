@@ -12,11 +12,14 @@ export interface TicketsState {
     readonly loading: boolean;
     readonly data: Ticket[];
     readonly errors?: string;
+    readonly showFormPopup: boolean;
   }
 
 
   export enum TicketActionTypes {
-    FETCH_REQUEST = "@@inventory/FETCH_REQUEST",
-    FETCH_SUCCESS = "@@inventory/FETCH_SUCCESS",
-    FETCH_ERROR = "@@inventory/FETCH_ERROR"
+    FETCH_REQUEST = "@@ticket/FETCH_REQUEST",
+    FETCH_SUCCESS = "@@ticket/FETCH_SUCCESS",
+    FETCH_ERROR = "@@ticket/FETCH_ERROR",
+    ADD_TICKET = "@@ticket/ADD_TICKET",
+    SHOW_FORM_POPUP = "@@ticket/SHOW_FORM_POPUP",
   }
