@@ -1,17 +1,14 @@
-import React, { ChangeEventHandler, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import './style.scss'
 import { ApplicationState } from "../../store";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { Ticket, TicketActionTypes } from "../../store/ticket/types";
-import CustomInput from "../CustomInput";
-import closeIcon from '../../icons/close.png';
+import {CustomInput} from "../CustomInputs";
+import closeIcon from '../../assets/icons/close.png';
 
 interface PropsFromState {
-    loading: boolean;
-    data: Ticket[];
-    errors?: string;
     showFormPopup: boolean;
 }
 
@@ -22,10 +19,8 @@ interface propsFromDispatch {
 
 type AllProps = PropsFromState & propsFromDispatch;
 
+
 const TicketForm: React.FC<AllProps> = ({
-    loading,
-    errors,
-    data,
     addTicket,
     setShowForm,
     showFormPopup
@@ -43,13 +38,21 @@ const TicketForm: React.FC<AllProps> = ({
             amount_avaliable: amount,
             price: price,
             color: '27C4D1',
-            active: 1,
+            active: 0,
             image: ''
         };
-        addTicket(newTicket)
+        resetForm();
+        addTicket(newTicket);
+    }
+
+    const resetForm = () => {
+        setName('');
+        setAmount(0);
+        setPrice(0);
     }
 
     const closeForm = () => {
+        resetForm();
         setIsFirstShow(false);
         setShowForm(false);
     }
@@ -62,9 +65,9 @@ const TicketForm: React.FC<AllProps> = ({
                 <span className="title">כרטיס</span>
             </div>
             <div className="form-body">
-                <CustomInput onChange={(e: any) => { ; setName(e.target.value) }} label="שם הכרטיס" name=">שם בכרטיס" explanation="לדוגמא: כרטיס כניסה " />
-                <CustomInput onChange={(e: any) => { ; setPrice(e.target.value) }} label="מחיר" name="שם בכרטיס" explanation="לדוגמא: כרטיס כניסה " />
-                <CustomInput onChange={(e: any) => { ; setAmount(e.target.value) }} label="כמות" name="שם בכרטיס" explanation="לדוגמא: כרטיס כניסה " />
+                <CustomInput value={name} onChange={(e: any) => { ; setName(e.target.value) }} label="שם הכרטיס" name="שם בכרטיס" explanation="לדוגמא: כרטיס כניסה " />
+                <CustomInput value={price} onChange={(e: any) => { ; setPrice(e.target.value) }} label="מחיר" name="תקציר" explanation="בכמה מילים על הכרטיס" />
+                <CustomInput value={amount} onChange={(e: any) => { ; setAmount(e.target.value) }} label="כמות" name="תקציר" explanation="בכמה מילים על הכרטיס" />
 
             </div>
             <div className="form-footer">
@@ -76,9 +79,6 @@ const TicketForm: React.FC<AllProps> = ({
 };
 
 const mapStateToProps = ({ tickets }: ApplicationState) => ({
-    loading: tickets.loading,
-    errors: tickets.errors,
-    data: tickets.data,
     showFormPopup: tickets.showFormPopup
 });
 

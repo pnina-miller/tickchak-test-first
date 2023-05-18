@@ -1,40 +1,63 @@
+@import "../../variable.scss";
+
+@mixin form-position-desktop-close {
+    right: calc($form-width * -1);
+}
+@mixin form-position-desktop-open {
+    right: 0;
+}
+
 $form-width: min(393pt, 30%);
 $form-width-mobile: 90%;
 
+@mixin form-position-mobile-open {
+    top: 15vh;
+}
+@mixin form-position-mobile-close {
+    top: 120vh;
+}
+
 .ticket-form-container {
     background-color: white;
-    height: 100vh;
-    top: 0;
-    right: 0;
+    height: 100%;
     border-radius: 16pt 16pt 0pt 16pt;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    z-index: 2;
 
     @media (min-width: 768px) {
+        top: 0;
         width: $form-width;
-    position: fixed;
-        right: calc($form-width * -1);
+        position: fixed;
+        @include form-position-desktop-close;
+        overflow-y: auto;
+        min-width: 350px;
+
         &.open {
-            right: 0;
+            @include form-position-desktop-open;
             animation-name: come-in-right;
             animation-duration: 0.5s;
         }
         &.close {
+            @include form-position-desktop-close;
             animation-name: come-out-right;
             animation-duration: 0.5s;
         }
     }
     @media (max-width: 768px) {
         width: $form-width-mobile;
-        top: 100vh;
-        position: absolute;
+        bottom: -100%;
+        position: fixed;
+        height: 90vh;
+
         &.open {
-            top: 120px;
+            @include form-position-mobile-open;
             animation-name: come-in-top;
             animation-duration: 0.5s;
         }
         &.close {
+            @include form-position-mobile-close;
             animation-name: come-out-top;
             animation-duration: 0.5s;
         }
@@ -73,6 +96,7 @@ $form-width-mobile: 90%;
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-bottom: 40px;
     }
 
     .form-footer {
@@ -88,42 +112,27 @@ $form-width-mobile: 90%;
             background-color: white;
 
             &.btn-colored {
-                background-color: #76d6e8;
+                background-color: $tickchakBlue;
             }
         }
     }
 }
 
 @keyframes come-in-right {
-    0% {
-        right: -100%;
-    }
-    100% {
-        right: 0;
-    }
+    0% { @include form-position-desktop-close; }
+    100% { @include form-position-desktop-open; }
 }
 @keyframes come-out-right {
-    0% {
-        right: 0;
-    }
-    100% {
-        right: calc($form-width * -1);
-    }
+    0% { @include form-position-desktop-open; }
+    100% { @include form-position-desktop-close; }
 }
 
 @keyframes come-in-top {
-    0% {
-        top: 100vh;
-    }
-    100% {
-        top: 120px;
-    }
+    0% { @include form-position-mobile-close; }
+    100% { @include form-position-mobile-open; }
 }
-@keyframes come-out-top {
-    0% {
-        top: 120px;
-    }
-    100% {
-        top: 100vh;
-    }
+
+@keyframes come-out-top { 
+    0% { @include form-position-mobile-open; }
+    100% { @include form-position-mobile-close; }
 }
