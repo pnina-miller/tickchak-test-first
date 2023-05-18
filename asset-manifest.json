@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.1bb5d81a.chunk.css",
+    "main.js": "/static/js/main.efd99333.chunk.js",
+    "main.js.map": "/static/js/main.efd99333.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.da5c926e.js",
+    "runtime-main.js.map": "/static/js/runtime-main.da5c926e.js.map",
+    "static/js/2.e346df47.chunk.js": "/static/js/2.e346df47.chunk.js",
+    "static/js/2.e346df47.chunk.js.map": "/static/js/2.e346df47.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.4493687306b5b79955af6297eb73ad6f.js": "/precache-manifest.4493687306b5b79955af6297eb73ad6f.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.1bb5d81a.chunk.css.map": "/static/css/main.1bb5d81a.chunk.css.map",
+    "static/js/2.e346df47.chunk.js.LICENSE.txt": "/static/js/2.e346df47.chunk.js.LICENSE.txt",
+    "static/media/bicycle.png": "/static/media/bicycle.1f630bd1.png",
+    "static/media/plus-circle.svg": "/static/media/plus-circle.1087d69d.svg",
+    "static/media/search.svg": "/static/media/search.01577e5d.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.da5c926e.js",
+    "static/js/2.e346df47.chunk.js",
+    "static/css/main.1bb5d81a.chunk.css",
+    "static/js/main.efd99333.chunk.js"
+  ]
+}
